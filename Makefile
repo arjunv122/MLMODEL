@@ -13,8 +13,8 @@ eval:
 	cml comment create report.md
 
 update-branch:
-	git config --global user.name "SAdvaita"
-	git config --global user.email "adhu1926@gmail.com"
+	git config --global user.name "arjunv112"
+	git config --global user.email "e0223017@sriher.edu.in"
 	git add model results
 	git commit -m "Update model and results"
 	git push --force origin HEAD:update
@@ -27,9 +27,9 @@ hf-login:
 
 push-hub:
 	# Added '.' to specify uploading to the root directory
-	hf upload AdvaitaS/MentalHealthInsights ./app . --repo-type=space --commit-message="Sync App files"
-	hf upload AdvaitaS/MentalHealthInsights ./model . --repo-type=space --commit-message="Sync Model"
-	hf upload AdvaitaS/MentalHealthInsights ./results . --repo-type=space --commit-message="Sync Results"
+	hf upload arjun122/mlcloud ./app . --repo-type=space --commit-message="Sync App files"
+	hf upload arjun122/mlcloud ./model . --repo-type=space --commit-message="Sync Model"
+	hf upload arjun122/mlcloud ./results . --repo-type=space --commit-message="Sync Results"
 
 deploy:
 	make hf-login
