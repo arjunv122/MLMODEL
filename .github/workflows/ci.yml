@@ -1,0 +1,44 @@
+name: Drug Classification CI-CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: make install
+
+      - name: Train Model
+        run: make train
+
+      - name: Set up CML
+        uses: iterative/setup-cml@v1
+
+      - name: Evaluate Model
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: make eval
+
+      - name: Update Model and Results Branch
+        run: make update-branch
+
+      - name: Deploy to Hugging Face
+        if: github.ref == 'refs/heads/main'
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: make deploy
